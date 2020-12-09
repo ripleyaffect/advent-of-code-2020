@@ -1,5 +1,8 @@
+INPUT_FILE_NAME = 'input.txt'
+PREAMBLE_SIZE = 25
+
 def get_input_values():
-    return [int(line.strip()) for line in open('input.txt').readlines()]
+    return [int(line.strip()) for line in open(INPUT_FILE_NAME).readlines()]
 
 
 def get_is_valid(value, preamble):
@@ -24,9 +27,9 @@ def get_first_invalid_value(values, preamble_size):
 def get_weakness_slice(values, target):
     current_index = 0
     for index in range(len(values)):
-        count = 1
-        slice = values[index:index + count]
-        slice_sum = sum(slice)
+        count = 0
+        slice = []
+        slice_sum = -1
 
         while slice_sum < target:
             count += 1
@@ -37,13 +40,19 @@ def get_weakness_slice(values, target):
             return slice
 
 
+def get_part_1(values, preamble_size):
+    return get_first_invalid_value(values, preamble_size)
+
+
+def get_part_2(values, target):
+    weakness_slice = get_weakness_slice(values, first_invalid_value)
+    return min(weakness_slice) + max(weakness_slice)
+
+
 if __name__ == '__main__':
     values = get_input_values()
-    preamble_size = 25
 
-    first_invalid_value = get_first_invalid_value(values, preamble_size)
+    first_invalid_value = get_first_invalid_value(values, PREAMBLE_SIZE)
     print(f'Part 1: {first_invalid_value}')
 
-    weakness_slice = get_weakness_slice(values, first_invalid_value)
-    weakness = min(weakness_slice) + max(weakness_slice)
-    print(f'Part 2: {weakness}')
+    print(f'Part 2: {get_part_2(values, first_invalid_value)}')
