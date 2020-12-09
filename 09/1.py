@@ -39,19 +39,11 @@ def get_weakness_slice(values, target):
             return slice
 
 
-def get_part_1(values, preamble_size):
-    return get_first_invalid_value(values, preamble_size)
-
-
-def get_part_2(values, target):
-    weakness_slice = get_weakness_slice(values, first_invalid_value)
-    return min(weakness_slice) + max(weakness_slice)
-
-
 if __name__ == '__main__':
     values = get_input_values()
 
     first_invalid_value = get_first_invalid_value(values, PREAMBLE_SIZE)
     print(f'Part 1: {first_invalid_value}')
 
-    print(f'Part 2: {get_part_2(values, first_invalid_value)}')
+    weakness_slice = get_weakness_slice(values, first_invalid_value)
+    print(f'Part 2: {min(weakness_slice) + max(weakness_slice)}')
