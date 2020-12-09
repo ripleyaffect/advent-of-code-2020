@@ -25,7 +25,6 @@ def get_first_invalid_value(values, preamble_size):
 
 
 def get_weakness_slice(values, target):
-    current_index = 0
     for index in range(len(values)):
         count = 0
         slice = []
