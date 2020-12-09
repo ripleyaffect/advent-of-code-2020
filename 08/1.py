@@ -1,9 +1,11 @@
 def get_input():
     return [line.strip() for line in open('input.txt').readlines()]
 
+
 def parse_instruction(instruction_raw):
     opcode, val_raw = instruction_raw.split(' ')
     return (opcode, int(val_raw))
+
 
 def get_instructions():
     instructions_raw = get_input()
@@ -11,6 +13,7 @@ def get_instructions():
         parse_instruction(instruction_raw)
         for instruction_raw in instructions_raw
     ]
+
 
 class Machine():
     def __init__(self, instructions):
@@ -66,18 +69,21 @@ class Machine():
             self.exceute_current_instruction()
         return True
 
+
 def get_modified_opcode(opcode):
-    if opcode == 'jmp':
-        return 'nop'
-    if opcode == 'nop':
-        return 'jmp'
-    return opcode
+    opcode_map = {
+        'jmp': 'nop',
+        'nop': 'jmp',
+    }
+    return opcode_map.get(opcode, opcode)
+
 
 def get_instructions_modified_at(instructions, index):
     return [
         (get_modified_opcode(opcode), value) if i == index else (opcode, value)
         for (i, (opcode, value)) in enumerate(instructions)
     ]
+
 
 def get_all_modified_instructions(instructions):
     return [
@@ -89,7 +95,7 @@ if __name__ == '__main__':
     instructions = get_instructions()
     machine = Machine(instructions)
 
-    # machine.run_until_repeat()
+    machine.run_until_repeat()
 
     print(f'Part 1: {machine.accumulator}')
 
