@@ -40,11 +40,12 @@ def get_code_patterns(matcher_dict, depth=0, entry_code='0'):
     if depth > MAX_LOOPS:
         return ''
 
-    joined = '|'.join(
+    pattern = '|'.join(
         ''.join(get_code_patterns(matcher_dict, depth + 1, v) for v in value)
         for value in values
     ).replace('()', '')
-    return f'({joined})' if depth > 0 else f'^{joined}$'
+
+    return f'({pattern})' if depth > 0 else f'^{pattern}$'
 
 
 def seed_part_2(matcher_dict):
