@@ -35,6 +35,9 @@ class Player():
         self.deck += cards
         return self.deck
 
+    def __repr__(self):
+        return f'<Player {self.id}>'
+
 
 class Combat():
     def __init__(self, player_1, player_2):
@@ -128,11 +131,13 @@ def run(input_file):
     combat = Combat(Player(1, deck_1), Player(2, deck_2))
     winner = combat.play()
 
+    print(winner)
     print(f'Part 1: {winner.score}')
 
     recursive_combat = RecursiveCombat(Player(1, deck_1), Player(2, deck_2))
     winner = recursive_combat.play()
 
+    print(winner)
     print(f'Part 2: {winner.score}')
 
 
